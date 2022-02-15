@@ -1,0 +1,17 @@
+* My Manjaro/Arch Linux config files
+I'm a Colemak user, I use [[https://github.com/antx-code/dwm][dwm]] and [[https://github.com/antx-code/st][st]].
+
+BTW, all my scripts are avalible in [[https://github.com/antx-code/scripts][scripts]].
+
+** My Fonts
+I use the Nerd-Fonts, which include nerd-fonts-source-code-pro and nerd-fonts-mononoki.
+
+** My Manjaro/Arch Linux Packages
+
+- see [[my-packages.txt][my-packages]]
+
+** Related Repositories
+- [[https://github.com/antx-code/dwm][dwm]]
+- [[https://github.com/antx-code/st][st]]
+- [[https://github.com/antx-code/scripts][scripts]]
+
