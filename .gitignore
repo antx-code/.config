@@ -46,3 +46,4 @@ ranger/plugins/devicons_linemode.pyo
 !/lazygit/config.yml
 /pypoetry/config.toml
 !/pypoetry
+!/bin
