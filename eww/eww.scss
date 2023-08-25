@@ -1,0 +1,295 @@
+// Global
+* {
+  all: unset;
+}
+
+// Variable Color's
+$background: #1a1b26;
+$foreground: #a9b1d6;
+
+$black: #24283b;
+$gray: #565f89;
+$red: #f7768e;
+$green: #73daca;
+$yellow: #e0af68;
+$blue: #7aa2f7;
+$magenta: #bb9af7;
+$cyan: #7dcfff;
+$white: $foreground;
+
+// EWW BAR
+.bar {
+  border-radius: 15;
+  background-color: rgba(26, 27, 38, 0.5);
+  padding: 0 1rem;
+}
+
+.logo {
+  color: $green;
+  font-size: 2.5em;
+  padding: 0 0.8rem 0 0.2rem;
+}
+
+.workspaces {
+  font-family: "mononoki Nerd Font Mono";
+  padding: 0.2rem 0.7rem;
+  background-color: $black;
+  border-radius: 10px;
+  color: $gray;
+}
+
+.workspace-entry {
+  margin: 0.35rem 1rem;
+  font-size: 1.25em;
+  font-weight: bold;
+  color: $foreground;
+}
+
+.current {
+  color: $red;
+}
+
+.time {
+  font-family: "mononoki Nerd Font Mono";
+  font-weight: bold;
+  font-size: 1.2em;
+  background-color: $white;
+  color: $black;
+  border-radius: 15px;
+  padding: 0.2rem 1rem;
+  margin: 0.5rem;
+}
+
+.powermenu {
+  font-family: SF Pro;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.button-reboot,
+.button-off,
+.button-lock {
+  padding: 0.5rem 0.2rem 0.3rem 0.2rem;
+}
+.button-reboot {
+  color: $yellow;
+  font-size: 1.4em;
+  // margin-right: .5rem;
+}
+.button-off {
+  color: $red;
+  margin-left: 0.5rem;
+}
+
+.button-lock {
+  color: $magenta;
+  font-size: 1.3em;
+  margin-right: 0.5rem;
+}
+
+.control {
+  font-family: "mononoki Nerd Font Mono";
+  font-size: 1.6em;
+  border-radius: 15px;
+  margin: 0.35rem 0;
+}
+
+.battery {
+  font-family: "mononoki Nerd Font Mono";
+  font-size: 1.2em;
+  margin: 0 0 0.3rem 0.5rem;
+  color: $blue;
+}
+
+.brightness-icon {
+  margin: 0 0.2rem;
+  color: $yellow;
+}
+
+scale trough {
+  all: unset;
+  background-color: $background;
+  border-radius: 5px;
+  min-height: 10px;
+  min-width: 80px;
+  margin: 0 0.3rem;
+}
+.brightbar trough highlight {
+  background-color: $yellow;
+  border-radius: 5px;
+}
+
+.volume-icon {
+  margin: 0 0.4rem;
+  font-size: 1.4em;
+  color: $green;
+}
+
+.volbar trough highlight {
+  background-color: $green;
+  border-radius: 5px;
+}
+
+.calendar-box {
+  background-color: rgba(26, 27, 38, 0.5);
+  font-family: "mononoki Nerd Font Mono";
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 15px;
+  border: 2px solid $white;
+
+  .calendar-inner-box {
+    padding: 1rem 1rem 0.2rem;
+
+    .calendar {
+      &.highlight {
+        padding: 10rem;
+      }
+
+      padding: 0.8rem 0.25rem 0rem;
+      margin-left: 10px;
+    }
+  }
+}
+
+calendar:selected {
+  color: $red;
+}
+
+calendar.header {
+  color: $blue;
+  font-weight: bold;
+}
+
+calendar.button {
+  color: $magenta;
+}
+
+calendar.highlight {
+  color: $magenta;
+  font-weight: bold;
+}
+
+calendar:indeterminate {
+  color: $gray;
+}
+
+.weather {
+  font-family: "mononoki Nerd Font Mono";
+  font-weight: bold;
+  color: $blue;
+  font-size: 1.2em;
+  padding: 0.5rem 1rem;
+  background-color: rgba(86, 95, 137, 0.3);
+  border-radius: 15px;
+  border: 2px solid $black;
+}
+
+.cpu-graph {
+  font-family: "mononoki Nerd Font Mono";
+  font-weight: bold;
+  color: $blue;
+  font-size: 1.2em;
+  padding: 0.2rem;
+  margin: 0.5rem 0 0.5rem 1rem;
+  background-color: rgba(86, 95, 137, 0.3);
+  border: 2px solid $black;
+  border-radius: 5px;
+}
+
+.cpu-graph-inner {
+  background-color: $red;
+}
+
+tooltip.background {
+  font-family: "mononoki Nerd Font Mono";
+  font-weight: bold;
+  background-color: $background;
+  font-size: 1.2em;
+  border-radius: 5px;
+  border: 2px solid $white;
+  color: $white;
+}
+
+tooltip label {
+  margin: 6px;
+}
+
+.music-cover {
+  background-size: cover;
+  background-position: center;
+  min-height: 24px;
+  min-width: 24px;
+  margin: 10px;
+  border-radius: 10%;
+}
+
+.music-title {
+  color: #a1bdce;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 3px 5px 0px 0px;
+}
+
+.activewindow {
+  font-family: "mononoki Nerd Font Mono";
+  font-weight: bold;
+  font-size: 1.2em;
+  color: $white;
+}
+
+.activewindow-arrow {
+  margin: 0 1rem;
+  font-size: 2rem;
+  color: $magenta;
+}
+
+.gh-notifications {
+  margin: 0 0.2rem 0 0.4rem;
+  font-size: 0.9em;
+  color: $magenta;
+}
+
+.gh-list {
+  border: $magenta solid 2px;
+  border-radius: 10;
+  background-color: $background;
+  font-family: "mononoki Nerd Font Mono";
+  font-size: 1.2em;
+  color: $white;
+}
+.gh-item {
+  border-bottom: $blue solid 2px;
+  margin: 0.5rem 0.5rem;
+  font-weight: bold;
+}
+.gh-issue {
+  border-color: $green;
+}
+.gh-discuss {
+  border-color: $white;
+}
+.gh-pr {
+  border-color: $yellow;
+}
+.gh-commit {
+  border-color: $white;
+}
+.gh-icon {
+  margin: 0.4rem;
+  font-size: 1em;
+  color: $blue;
+}
+
+.gh-icon-issue {
+  color: $green;
+}
+.gh-icon-discuss {
+  color: $white;
+}
+.gh-icon-pr {
+  color: $yellow;
+}
+.gh-icon-commit {
+  color: $white;
+}
