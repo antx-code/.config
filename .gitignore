@@ -48,6 +48,7 @@ ranger/plugins/devicons_linemode.pyo
 !/pypoetry
 !/bin
 !/eww
+/eww/.vscode
 !/hypr
 !/rofi
 !/mako
