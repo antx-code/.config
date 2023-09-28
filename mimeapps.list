@@ -1,0 +1,21 @@
+[Default Applications]
+text/html=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/unknown=google-chrome.desktop
+x-scheme-handler/jetbrains=jetbrains-toolbox.desktop
+text/markdown=typora.desktop
+image/png=feh.desktop
+text/csv=wps-office-et.desktop
+application/pdf=org.gnome.Evince.desktop
+application/x-md=typora.desktop
+text/plain=nvim.desktop
+
+[Added Associations]
+text/markdown=typora.desktop;
+image/png=org.gnome.gThumb.desktop;feh.desktop;
+text/csv=wps-office-et.desktop;
+application/pdf=org.gnome.Evince.desktop;
+application/x-md=typora.desktop;
+text/plain=nvim.desktop;

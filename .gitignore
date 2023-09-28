@@ -51,4 +51,6 @@ ranger/plugins/devicons_linemode.pyo
 !/hypr
 !/rofi
 !/mako
-
+!/dunst
+!/autostart
+!/mimeapps.list

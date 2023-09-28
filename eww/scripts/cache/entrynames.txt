@@ -1,0 +1,137 @@
+1Password
+About Xfce
+Add/Remove Software
+Alacritty
+Another Redis Desktop Manager
+Archive Manager
+Avahi SSH Server Browser
+Avahi VNC Server Browser
+Avahi Zeroconf Browser
+Backups
+Boxes
+Bulk Rename
+CLion 2023.2.2
+CMake
+Caffeine-ng
+Calculator
+Calendar
+Characters
+Cheese
+Chess
+Clocks
+Cloudflare Zero Trust
+Color Profile Viewer
+Contacts
+DB Browser for SQLite
+DataGrip 2023.2.1
+DataSpell 2023.2.2
+Disk Usage Analyzer
+Disks
+Docs
+Document Scanner
+Document Viewer
+Dynamic Wallpaper
+Dynamic Wallpaper Editor
+EasyConnect
+Endeavour
+Extensions
+Fcitx 5
+Fcitx 5 Configuration
+Fcitx 5 Migration Wizard
+File Manager Settings
+Files
+Firefox Web Browser
+Firewall Configuration
+Firmware
+Fonts
+Fragments
+GNOME AppFolders Manager
+GNOME System Monitor
+GParted
+Geary
+Gmail
+GoLand 2023.2.2
+Google Chrome
+Google Drive
+Gradience
+GtkHash
+HP Device Manager
+Hardware Locality lstopo
+Help
+Htop
+IBus Preferences
+IDA
+Icon Browser
+JADX-GUI
+JD-GUI
+JetBrains Toolbox
+JetBrains Toolbox
+Keyboard layout viewer
+LSHW
+Layout Switcher
+Logs
+Lollypop
+Main Menu
+Manage Printing
+Manjaro Hello
+Manjaro Log Helper
+Manjaro Notifier Settings
+Manjaro Settings Manager
+Manjaro User Guide
+Material Shell Preferences
+Mines
+Neovim
+Nutstore
+Nutstore LightApp
+ONLYOFFICE Desktop Editors
+OpenJDK Java 17 Console
+OpenJDK Java 17 Shell
+Passwords and Keys
+Printers
+PyCharm Professional 2023.2.1
+Qt V4L2 test Utility
+Qt V4L2 video capture utility
+Quadrapassel
+Remmina
+Reversi
+Robo 3T
+Rofi
+Rofi Theme Selector
+Rygel Preferences
+Settings
+Sheets
+Slides
+Software Token
+Software Token (small)
+System Monitor
+Telegram Desktop
+Terminal
+Thunar File Manager
+Timeshift
+ToolBox
+Touché
+Tweaks
+Typora
+VMware Player
+VMware Workstation
+Videos
+Vim
+Virtual Network Editor
+Visual Studio Code
+WPS 2019
+WPS PDF
+WPS Presentation
+WPS Spreadsheets
+WPS Writer
+WeChat
+Weather
+Web Apps
+Wireshark
+YAD settings
+YouTube
+dconf Editor
+gThumb
+gedit
+hp-uiscan
+ranger
+st

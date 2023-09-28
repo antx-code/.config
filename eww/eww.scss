@@ -1,295 +1,693 @@
-// Global
+@import "/home/soc/.config/eww/css/colors";
+@import "/home/soc/.config/eww/css/colorscheme";
+@import "/home/soc/.config/eww/css/material";
+@import "/home/soc/.config/eww/images/svg/color.scss";
+
+@function tint($color, $percentage) {
+  @return mix(rgb(245, 250, 255), $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+  @return mix(rgb(0, 7, 18), $color, $percentage);
+}
+
+$battcolor: $color6;
+$memcolor: $color5;
+$cpucolor: $color4;
+$border: $color7;
+$surface0: tint($colorbg, 10%);
+$bg1: $surface0;
+
+//thanks flick0!
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+//also thanks to him
+@keyframes blink {
+  to {
+    background-color: #f9e2af;
+    color: #96804e;
+  }
+}
+
+@keyframes ripple {
+  to {
+    background-size: 1000% 1000%;
+  }
+}
+
+@keyframes flyin-bottom {
+  from {
+    margin-bottom: -55px;
+    margin-top: 55px;
+  }
+
+  to {
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+}
+
+@keyframes flyin-top {
+  from {
+    margin-bottom: 55px;
+    margin-top: -55px;
+  }
+
+  to {
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+}
+
+@mixin rounding {
+  border-radius: 10px;
+}
+
+@mixin filter {
+  saturate {
+    filter: saturate(3);
+  }
+
+  grayscale {
+    filter: grayscale(100%);
+  }
+
+  contrast {
+    filter: contrast(160%);
+  }
+
+  brightness {
+    filter: brightness(0.25);
+  }
+
+  blur {
+    filter: blur(3px);
+  }
+
+  invert {
+    filter: invert(100%);
+  }
+
+  .sepia {
+    filter: sepia(100%);
+  }
+
+  huerotate {
+    filter: hue-rotate(180deg);
+  }
+
+  rss.opacity {
+    filter: opacity(50%);
+  }
+}
+
+@mixin window {
+  border: 3px solid $primary;
+  // box-shadow: 0 2px 3px $shadow;
+  margin: 5px 5px 10px;
+  @include rounding;
+}
+
 * {
   all: unset;
+  transition: 200ms cubic-bezier(0.05, 0.7, 0.1, 1);
+  // font-family: 'Torus', 'Material Symbols Rounded';
+  background-repeat: no-repeat;
 }
 
-// Variable Color's
-$background: #1a1b26;
-$foreground: #a9b1d6;
-
-$black: #24283b;
-$gray: #565f89;
-$red: #f7768e;
-$green: #73daca;
-$yellow: #e0af68;
-$blue: #7aa2f7;
-$magenta: #bb9af7;
-$cyan: #7dcfff;
-$white: $foreground;
-
-// EWW BAR
-.bar {
-  border-radius: 15;
-  background-color: rgba(26, 27, 38, 0.5);
-  padding: 0 1rem;
+.scale slider {
+  transition: all 75ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.logo {
-  color: $green;
-  font-size: 2.5em;
-  padding: 0 0.8rem 0 0.2rem;
+.progress slider {
+  transition: all 75ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.music-ctl-revealer {
+  font-family: Material Symbols Rounded;
+}
+
+@import "/home/soc/.config/eww/css/bottombar";
+@import "/home/soc/.config/eww/css/bgdecor";
+@import "/home/soc/.config/eww/css/calendar";
+@import "/home/soc/.config/eww/css/dashboard";
+@import "/home/soc/.config/eww/css/dashfs";
+@import "/home/soc/.config/eww/css/editmode";
+@import "/home/soc/.config/eww/css/music";
+@import "/home/soc/.config/eww/css/notification";
+@import "/home/soc/.config/eww/css/overview";
+@import "/home/soc/.config/eww/css/osd";
+@import "/home/soc/.config/eww/css/osettings";
+@import "/home/soc/.config/eww/css/sidebar";
+@import "/home/soc/.config/eww/css/system";
+@import "/home/soc/.config/eww/css/themer";
+@import "/home/soc/.config/eww/css/taskbar";
+@import "/home/soc/.config/eww/css/volume";
+@import "/home/soc/.config/eww/css/winctl";
+@import "/home/soc/.config/eww/css/winstuff";
+
+.module-group {
+  // background-color: $colorbg;
+  min-height: 53px;
+  color: $fg;
+  border-bottom-right-radius: 26px;
+  border-bottom-left-radius: 26px;
+}
+
+.bar-bg-only {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: -1911px;
+  margin-left: 8px;
+  border-radius: 26px;
+  background-color: shade(
+    $colorbg,
+    75%
+  ); //because dark background makes colors pop
+  background-image: linear-gradient(
+    135deg,
+    shade($onTertiary, 47%) 18%,
+    rgba(0, 0, 0, 0) 18%,
+    rgba(0, 0, 0, 0) 37%,
+    shade($onTertiary, 47%) 37%,
+    shade($onTertiary, 47%) 63%,
+    rgba(0, 0, 0, 0) 63%,
+    rgba(0, 0, 0, 0) 85%,
+    shade($onTertiary, 47%) 85%
+  );
+}
+
+.bar-bg-only-compact {
+  margin-right: -1920px;
+  background-color: shade(
+    $colorbg,
+    75%
+  ); //because dark background makes colors pop
+  background-image: linear-gradient(
+    135deg,
+    shade($onTertiary, 47%) 18%,
+    rgba(0, 0, 0, 0) 18%,
+    rgba(0, 0, 0, 0) 37%,
+    shade($onTertiary, 47%) 37%,
+    shade($onTertiary, 47%) 63%,
+    rgba(0, 0, 0, 0) 63%,
+    rgba(0, 0, 0, 0) 85%,
+    shade($onTertiary, 47%) 85%
+  );
+}
+
+.bar-normal {
+  // margin: 8px;
+  // border-radius: 26px;
+  // background-color: shade($colorbg, 75%); //because dark background makes colors pop
+  min-height: 53px;
+  color: $fg;
+  border-bottom-right-radius: 26px;
+  border-bottom-left-radius: 26px;
+
+  // background-image: linear-gradient(to right,
+  //     rgba(0, 0, 0, 0) 0%,
+  //     rgba(0, 0, 0, 0) 4.322916667%,
+  //     shade($colorbg, 75%) 4.322916667%,
+  //     shade($colorbg, 75%) 96.82291667%,
+  //     rgba(0, 0, 0, 0) 96.82291667%,
+  //     rgba(0, 0, 0, 0) 100%,
+  //   );
+
+  label {
+    font-size: 1.2rem;
+  }
+
+  font-family: "Torus";
+  // animation-name: flyin-top;
+  // animation-duration: 350ms;
+  // animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  // animation-iteration-count: 1;
+}
+
+.bar-compact {
+  background-color: shade(
+    $colorbg,
+    70%
+  ); //because dark background makes colors pop
+  border-bottom: 1px solid $primary;
+  min-height: 53px;
+  color: $fg;
+
+  label {
+    font-size: 1.2rem;
+  }
+
+  font-family: "Torus";
+}
+
+tooltip {
+  background: $colorbarbg;
+  border: 1px solid rgba(60, 60, 60, 0.4);
+  border-radius: 8px;
+  color: white;
+
+  label {
+    font-family: "Segoe UI Variable";
+    font-size: 13pt;
+  }
+}
+
+.music-module {
+  font-family: Material Symbols Rounded;
+}
+
+.icon {
+  font-family: Material Symbols Rounded;
+  // padding-left: 4px;
+  // padding-right: 4px;
+}
+
+.module {
+  font-family: Material Symbols Rounded;
+  min-height: 53px;
+}
+
+.module-timedate {
+  padding-left: 13px;
+  padding-right: 13px;
+}
+
+.hour {
+  // font-weight: bold;
+  // padding-left: 13px;
+  color: $colorbar;
+  font-size: 20pt;
+}
+
+.clock {
+  color: $color2;
+  font-family: "Torus";
+  font-size: 19pt;
+}
+
+// .clock-module:hover {
+//   border-top: 2px solid $color5;
+// }
+
+.minute {
+  color: $color2;
+  font-family: "Torus", "Material Symbols Rounded";
+}
+
+.timedate-time {
+  label {
+    font-size: 16pt;
+  }
+}
+
+.date {
+  font-family: "Torus", "Material Symbols Rounded";
+  color: $color2;
+
+  // margin-top: -2px;
+  label {
+    font-size: 12pt;
+  }
+}
+
+.bright-icon {
+  color: $color2;
+  padding-right: 4px;
+  padding-top: 4px;
+}
+
+// .bright-icon:hover {
+//   border-top: 2px solid;
+// }
+
+.module-bt {
+  font-size: 1.2rem;
 }
 
 .workspaces {
-  font-family: "mononoki Nerd Font Mono";
-  padding: 0.2rem 0.7rem;
-  background-color: $black;
-  border-radius: 10px;
-  color: $gray;
+  // margin-left: 10px;
+  background-color: transparent;
 }
 
-.workspace-entry {
-  margin: 0.35rem 1rem;
-  font-size: 1.25em;
-  font-weight: bold;
-  color: $foreground;
-}
-
-.current {
-  color: $red;
-}
-
-.time {
-  font-family: "mononoki Nerd Font Mono";
-  font-weight: bold;
-  font-size: 1.2em;
-  background-color: $white;
-  color: $black;
-  border-radius: 15px;
-  padding: 0.2rem 1rem;
-  margin: 0.5rem;
-}
-
-.powermenu {
-  font-family: SF Pro;
-  font-size: 1.4em;
-  font-weight: bold;
-}
-
-.button-reboot,
-.button-off,
-.button-lock {
-  padding: 0.5rem 0.2rem 0.3rem 0.2rem;
-}
-.button-reboot {
-  color: $yellow;
-  font-size: 1.4em;
-  // margin-right: .5rem;
-}
-.button-off {
-  color: $red;
-  margin-left: 0.5rem;
-}
-
-.button-lock {
-  color: $magenta;
-  font-size: 1.3em;
-  margin-right: 0.5rem;
-}
-
-.control {
-  font-family: "mononoki Nerd Font Mono";
-  font-size: 1.6em;
-  border-radius: 15px;
-  margin: 0.35rem 0;
-}
-
-.battery {
-  font-family: "mononoki Nerd Font Mono";
-  font-size: 1.2em;
-  margin: 0 0 0.3rem 0.5rem;
-  color: $blue;
-}
-
-.brightness-icon {
-  margin: 0 0.2rem;
-  color: $yellow;
-}
-
-scale trough {
-  all: unset;
-  background-color: $background;
-  border-radius: 5px;
-  min-height: 10px;
-  min-width: 80px;
-  margin: 0 0.3rem;
-}
-.brightbar trough highlight {
-  background-color: $yellow;
-  border-radius: 5px;
+.player-controls {
+  font-family: Material Symbols Rounded;
 }
 
 .volume-icon {
-  margin: 0 0.4rem;
-  font-size: 1.4em;
-  color: $green;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
-.volbar trough highlight {
-  background-color: $green;
+.net-icon {
+  color: $color7;
+  font-family: Material Symbols Rounded;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 4px;
+}
+
+// .net-icon:hover {
+//   border-top: 2px solid;
+// }
+
+.my-separator {
+  padding-left: 15px;
+  padding-right: 15px;
+  color: $onBackground;
+  min-height: 53px;
+}
+
+.ws {
+  font-size: 6rem;
+  transition: 75ms cubic-bezier(0.05, 0.9, 0.1, 1); //Hyprland, no overshot
+  // transition: 400ms cubic-bezier(0.2, 0.0, 0, 1.0); //Material 3
+}
+
+.ws-top {
+  // padding-top: 9px;
+}
+
+.ws-active-top {
+}
+
+.ws-text {
+  font-size: 16pt;
+  font-family: Torus;
+  border-radius: 9999px;
+  // padding-left: 3px;
+  // padding-right: 3px;
+  min-width: 27px;
+  min-height: 27px;
+  color: $colorbarbg;
+  margin-top: 13px;
+  margin-bottom: 13px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.ws-text-top {
+  // font-size: 16pt;
+  // font-family: Torus;
+  border-radius: 9999px;
+  // padding-left: 3px;
+  // padding-right: 3px;
+  min-width: 27px;
+  min-height: 5px;
+  color: $colorbarbg;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.ws-text-active {
+  background-color: $colorbar;
+}
+
+.ws:hover {
+  :first-child {
+    color: $tertiary;
+  }
+}
+
+.ws-active {
+  background-color: $onBackground;
+}
+
+.ws-inactive {
+  // background-color: tint($colorbg, 37%);
+  background-color: rgba(194, 192, 192, 0.7);
+}
+
+.ws-empty {
+  // background-color: tint($colorbg, 10%);
+  background-color: rgba(146, 145, 145, 0.3);
+}
+
+.activewin {
+  color: $colorbar;
+  // padding-left: 8px;
+  // padding-right: 8px;
+}
+
+// .themer-get {
+//   padding-top: 4px;
+//   padding-left: 10px;
+//   padding-right: 10px;
+//   background-image: url("images/grayscale/Add.png");
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   background-size: 100%;
+// }
+
+// .themer-restore {
+//   padding-top: 7px;
+//   padding-left: 10px;
+//   padding-right: 10px;
+//   padding-bottom: 16px;
+//   background-image: url("images/grayscale/Backup.png");
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   background-size: 100%;
+// }
+
+.icon,
+.icon,
+.icon-text,
+.vol-icon label {
+  font-family: "Material Symbols Rounded";
+}
+
+.username {
+  color: $onBackground;
+}
+
+.userpic {
+  margin: 5px;
+  min-height: 42px;
+  min-width: 42px;
+  background-size: 100%;
   border-radius: 5px;
+  background-repeat: no-repeat;
 }
 
-.calendar-box {
-  background-color: rgba(26, 27, 38, 0.5);
-  font-family: "mononoki Nerd Font Mono";
-  font-size: 1em;
-  font-weight: bold;
-  border-radius: 15px;
-  border: 2px solid $white;
+.osettings-toggle-button-false {
+  :first-child {
+    :first-child {
+      padding: 0px 11px;
+      min-width: 53px;
+      min-height: 53px;
+      background-color: transparent;
+      // background-image: url('images/svg/settings.svg');
+      background-size: 400% auto;
+      background-repeat: no-repeat;
+      background-image: linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0) 60%,
+        tint($overlay0, 10%) 60%
+      );
+      border-radius: 26px;
 
-  .calendar-inner-box {
-    padding: 1rem 1rem 0.2rem;
-
-    .calendar {
-      &.highlight {
-        padding: 10rem;
+      :active {
+        background-color: $overlay0;
+        background-position: 90% 50%;
       }
-
-      padding: 0.8rem 0.25rem 0rem;
-      margin-left: 10px;
     }
   }
 }
 
-calendar:selected {
-  color: $red;
+.osettings-toggle-button-false:hover {
+  :first-child {
+    :first-child {
+      background-color: $overlay0;
+      background-position: 60% 50%;
+    }
+  }
 }
 
-calendar.header {
-  color: $blue;
-  font-weight: bold;
+.osettings-toggle-button-true {
+  :first-child {
+    :first-child {
+      padding: 0px 11px;
+      min-width: 53px;
+      min-height: 53px;
+      background-color: $overlay0;
+      background-position: 90% 50%;
+      background-repeat: no-repeat;
+      background-image: linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0) 60%,
+        tint($overlay0, 10%) 60%
+      );
+      background-size: 400% auto;
+      border-radius: 26px;
+    }
+  }
 }
 
-calendar.button {
-  color: $magenta;
+.module-button-pad {
+  margin: 8px 0;
+  border-radius: 26px;
+  // background-color: shade($colorbg, 75%);
 }
 
-calendar.highlight {
-  color: $magenta;
-  font-weight: bold;
+.module-button-pad-left {
+  margin: 8px 0;
+  margin-left: 8px;
+  // background-color: shade($colorbg, 75%);
+  border-top-left-radius: 26px;
+  border-bottom-left-radius: 26px;
 }
 
-calendar:indeterminate {
-  color: $gray;
+.module-button-pad-center {
+  margin: 8px 0;
+  // background-color: shade($colorbg, 75%);
 }
 
-.weather {
-  font-family: "mononoki Nerd Font Mono";
-  font-weight: bold;
-  color: $blue;
-  font-size: 1.2em;
-  padding: 0.5rem 1rem;
-  background-color: rgba(86, 95, 137, 0.3);
-  border-radius: 15px;
-  border: 2px solid $black;
+.module-button-pad-right {
+  margin: 8px 0;
+  margin-right: 8px;
+  // background-color: shade($colorbg, 75%);
+  border-bottom-right-radius: 26px;
+  border-top-right-radius: 26px;
 }
 
-.cpu-graph {
-  font-family: "mononoki Nerd Font Mono";
-  font-weight: bold;
-  color: $blue;
-  font-size: 1.2em;
-  padding: 0.2rem;
-  margin: 0.5rem 0 0.5rem 1rem;
-  background-color: rgba(86, 95, 137, 0.3);
-  border: 2px solid $black;
-  border-radius: 5px;
+.module-button-pad-right-nomargin {
+  // background-color: shade($colorbg, 75%);
+  border-bottom-right-radius: 26px;
+  border-top-right-radius: 26px;
 }
 
-.cpu-graph-inner {
-  background-color: $red;
-}
-
-tooltip.background {
-  font-family: "mononoki Nerd Font Mono";
-  font-weight: bold;
-  background-color: $background;
-  font-size: 1.2em;
-  border-radius: 5px;
-  border: 2px solid $white;
-  color: $white;
-}
-
-tooltip label {
-  margin: 6px;
-}
-
-.music-cover {
-  background-size: cover;
+.onotify-toggle-button-false {
+  min-width: 53px;
+  min-height: 53px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: auto 65%;
   background-position: center;
-  min-height: 24px;
-  min-width: 24px;
-  margin: 10px;
-  border-radius: 10%;
+
+  :hover {
+    background-color: $overlay0;
+    // background-image: url('./images/lazer_icons/notifications_hover.png');
+  }
+
+  border-radius: 26px;
 }
 
-.music-title {
-  color: #a1bdce;
-  font-size: 1.2em;
-  font-weight: bold;
-  margin: 3px 5px 0px 0px;
+.onotify-toggle-button-true {
+  min-width: 53px;
+  min-height: 53px;
+  background-color: $overlay0;
+  // background-image: url('./images/lazer_icons/notifications_hover.png');
+  background-repeat: no-repeat;
+  background-size: auto 65%;
+  background-position: center;
 }
 
-.activewindow {
-  font-family: "mononoki Nerd Font Mono";
-  font-weight: bold;
-  font-size: 1.2em;
-  color: $white;
+.real-onotify-toggle-button {
+  min-width: 53px;
+  min-height: 53px;
+  // background-image: url('./images/svg/forum.svg');
+  background-repeat: no-repeat;
+  background-size: auto 65%;
+  background-position: center;
+
+  :hover {
+    background-color: $overlay0;
+  }
 }
 
-.activewindow-arrow {
-  margin: 0 1rem;
-  font-size: 2rem;
-  color: $magenta;
+.real-onotify-toggle-button-true {
+  min-width: 53px;
+  min-height: 53px;
+  background-color: $overlay0;
+  background-size: auto 65%;
+  background-position: center;
+  // background-image: url('./images/svg/forum.svg');
+  background-repeat: no-repeat;
 }
 
-.gh-notifications {
-  margin: 0 0.2rem 0 0.4rem;
-  font-size: 0.9em;
-  color: $magenta;
+.module-button {
+  transition: 500ms cubic-bezier(0.05, 0.7, 0.1, 1);
+  border-radius: 26px;
+  padding: 0px 5px;
+  background-image: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0) 60%,
+    tint($overlay0, 10%) 60%
+  );
+  background-size: 400% auto;
+  background-position: 40% 50%;
 }
 
-.gh-list {
-  border: $magenta solid 2px;
-  border-radius: 10;
-  background-color: $background;
-  font-family: "mononoki Nerd Font Mono";
-  font-size: 1.2em;
-  color: $white;
-}
-.gh-item {
-  border-bottom: $blue solid 2px;
-  margin: 0.5rem 0.5rem;
-  font-weight: bold;
-}
-.gh-issue {
-  border-color: $green;
-}
-.gh-discuss {
-  border-color: $white;
-}
-.gh-pr {
-  border-color: $yellow;
-}
-.gh-commit {
-  border-color: $white;
-}
-.gh-icon {
-  margin: 0.4rem;
-  font-size: 1em;
-  color: $blue;
+.module-button-hover {
+  transition: 500ms cubic-bezier(0.05, 0.7, 0.1, 1);
+  border-radius: 26px;
+  padding: 0px 5px;
+  background-image: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0) 60%,
+    tint($overlay0, 10%) 60%
+  );
+  background-size: 400% auto;
+  background-color: $overlay0;
+  background-position: 60% 50%;
 }
 
-.gh-icon-issue {
-  color: $green;
+.module-button:hover {
+  background-color: $overlay0;
+  background-position: 60% 50%;
 }
-.gh-icon-discuss {
-  color: $white;
+
+.module-button:active {
+  background-color: $overlay0;
+  background-position: 100% 50%;
 }
-.gh-icon-pr {
-  color: $yellow;
+
+.module-button-true {
+  border-radius: 26px;
+  padding: 0px 5px;
+  background-color: $overlay0;
+  background-image: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0) 60%,
+    tint($overlay0, 10%) 60%
+  );
+  background-size: 400% auto;
+  background-position: 90% 50%;
 }
-.gh-icon-commit {
-  color: $white;
+
+.dynbg-image {
+  transition: 900ms cubic-bezier(0.05, 0.9, 0.1, 1); // Hyprland default bezier but no overshot
+}
+
+progressbar > trough {
+  min-width: 30px;
+}
+
+.box-that-is-there {
+  background-color: transparent;
+}
+
+.search-button {
+  min-height: 53px;
+  min-width: 65px;
+  color: $colortext;
+  font-family: Material Symbols Rounded;
+}
+
+.workspaces-top {
+  min-width: 306px;
+  min-height: 5px;
 }

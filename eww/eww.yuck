@@ -1,365 +1,224 @@
-;; Calendar Widget
-(defpoll date :interval "1s" `env LANG=en.US date '+{"year":"%Y","week":"%a","day":"%d","month":"%b","hour":"%H","min":"%M"}'`)
+;##################### Modules #########################
+(include "/home/soc/.config/eww/modules/activewindow.yuck")
+(include "/home/soc/.config/eww/modules/audiolevels.yuck")
+(include "/home/soc/.config/eww/modules/bluetooth.yuck")
+(include "/home/soc/.config/eww/modules/bright.yuck")
+(include "/home/soc/.config/eww/modules/clock.yuck")
+(include "/home/soc/.config/eww/modules/editmode.yuck")
+(include "/home/soc/.config/eww/modules/music.yuck")
+; (include "/home/soc/.config/eww/modules/net.yuck")
+(include "/home/soc/.config/eww/modules/searchbutton.yuck")
+(include "/home/soc/.config/eww/modules/sys.yuck")
+(include "/home/soc/.config/eww/modules/taskbar.yuck")
+(include "/home/soc/.config/eww/modules/variables.yuck")
+(include "/home/soc/.config/eww/modules/user.yuck")
+; (include "/home/soc/.config/eww/modules/volume.yuck")
+(include "/home/soc/.config/eww/modules/winstuff.yuck")
+(include "/home/soc/.config/eww/modules/workspaces.yuck")
 
-(defwidget cal []
-    (box :class "calendar-box"
-         :orientation "h"
-        (box :class "calendar-inner-box"
-            (calendar :class "calendar"
-                :day "${date.day}"
-                :month "${date.month}"
-                :year "${date.year}"
-            )
-        )
+;##################### Windows #########################
+(include "/home/soc/.config/eww/windows/bottombar.yuck")
+(include "/home/soc/.config/eww/windows/bg-decor.yuck")
+(include "/home/soc/.config/eww/windows/dynamic-bg.yuck")
+(include "/home/soc/.config/eww/windows/dashboard.yuck")
+(include "/home/soc/.config/eww/windows/dashfs.yuck")
+(include "/home/soc/.config/eww/windows/calendar.yuck")
+(include "/home/soc/.config/eww/windows/music.yuck")
+(include "/home/soc/.config/eww/windows/overview.yuck")
+(include "/home/soc/.config/eww/windows/osd.yuck")
+(include "/home/soc/.config/eww/windows/osettings.yuck")
+(include "/home/soc/.config/eww/windows/onotify.yuck")
+; (include "/home/soc/.config/eww/windows/system-menu.yuck")
+(include "/home/soc/.config/eww/windows/themer.yuck")
+(include "/home/soc/.config/eww/windows/winactions.yuck")
+(include "/home/soc/.config/eww/windows/winosd.yuck")
+(include "/home/soc/.config/eww/windows/winnews.yuck")
+(include "/home/soc/.config/eww/windows/winnotif.yuck")
+(include "/home/soc/.config/eww/windows/winpowermenu.yuck")
+(include "/home/soc/.config/eww/windows/winstart.yuck")
+(include "/home/soc/.config/eww/windows/winoverview.yuck")
+(include "/home/soc/.config/eww/windows/wingamebar.yuck")
+
+(defwidget separator []
+  (box
+    :valign "start"
+    (label
+      :class "my-separator"
+      :text "|"
     )
+  )
 )
 
-;; Widgets on Center
-
-(deflisten music-cover "sh ~/.config/eww/scripts/get-music-cover.sh ~/.config/eww/cache_directory")
-(defpoll music :interval "5s" `playerctl metadata --format '{"title":"{{ markup_escape(xesam:title) }}","status":"{{ status }}","album":"{{ album }}","artist":"{{artist}}"}'`)
-(defwidget music []
-    (eventbox
-        (box :space-evenly "false"
-            :vexpand "false"
-            :hexpand "false"
-            (box :vexpand "false"
-                :hexpand "false"
-                :class "music-cover"
-                :style "background-image:url('${music-cover}');"
-            )
-            (label
-                :class "music-title"
-                :wrap "true"
-                :tooltip "${music.status}: ${music.title}
-Album: ${music.album}
-Artist: ${music.artist}"
-                :limit-width 15
-                :text "${music.title}")
-        )
-    )
-)
-
-(defpoll weather :interval "10m" `curl -m 10 wttr.in/shenzhen?format='\\{"cond":"%c","temp":"%t","loc":"%l","wind":"%w","pressure":"%P","precip":"%p","temp_like":"%f"\\}'`)
-(defwidget weather []
-    (eventbox
-        (box :orientation "h"
-            :space-evenly "true"
-            :valign "center"
-            :class "weather"
-            :tooltip "Location: ${weather.loc}
-Temperature (Feels Like): ${weather.temp_like}
-Wind: ${weather.wind}
-Pressure: ${weather.pressure}
-Precipitation: ${weather.precip}"
-            "${weather.cond}${weather.temp}"
-        )
-    )
-)
-
-;; Center Widgets
-(defwidget center []
-   (box :orientation "h"
-        :space-evenly "false"
-        :halign "center"
-        (weather)
-        (music)
-    )
-)
-
-;; Widgets on Right
-
-(defvar gh-show "false")
-(defpoll gh-notifications :interval "1m" "gh api notifications")
-(defwidget gh-notifications [len]
-    (box :orientation "h"
-        :space-evenly "false"
-        (button :onclick "${gh-show ? "${EWW_CMD} update gh-show=false && ${EWW_CMD} close ghn":"${EWW_CMD} update gh-show=true && ${EWW_CMD} open ghn"}"
-         (label :class "gh-notifications"
-            :text "${len > 0 ? "􀝗" : "􀋚"}")
-         )
-    )
-)
-(defwidget gh-list []
-    (box :class "gh-list"
-        :orientation "v"
-        :space-evenly "false"
-        (for notification in gh-notifications
-            (gh-item :type "${notification.subject.type}"
-                    :title "${notification.subject.title}"
-                    :url "${notification.subject.url}")
-        )
-     )
-)
-(defwidget gh-item [type title url]
-    (box :halign "start"
-        :space-evenly "false"
-        :class "gh-item ${type == "Issue" ? "gh-issue" :
-            (type == "Discussion") ? "gh-discuss":
-            (type == "PullRequest") ? "gh-pr":
-            (type == "Commit") ? "gh-commit" : ""}"
-            (box :class "gh-icon ${type == "Issue" ? "gh-icon-issue" :
-                (type == "Discussion") ? "gh-icon-discuss":
-                (type == "PullRequest") ? "gh-icon-pr":
-                (type == "Commit") ? "gh-icon-commit" : ""}"
-                "${type == "Issue" ? "􀍷" :
-                (type == "Discussion") ? "􀒤":
-                (type == "PullRequest") ? "":
-                (type == "Commit") ? "􀡚" :
-                (type == "Release") ? "" : "􀂓"}")
-            (button :onclick "gh api ${url} | jq .html_url | xargs xdg-open &"
-                (label
-                    :limit-width 30
-                    :text title)
-            )
-    )
-)
-
-(defwidget cpu-graph [avg]
-    (box :class "cpu-graph"
-        :orientation "v"
-        :space-evenly "true"
-        :tooltip "${round(avg, 2)}%"
-        (graph :class "cpu-graph-inner"
-                :height 5
-                :width 45
-                :value avg
-                :max 20
-                :min 0
-                :dynamic "true"
-                :thickness "2"
-                :line-style "miter"
-                :time-range "10s"
-        )
-    )
-)
-
-(defpoll volume :interval "1s" "volumectl | awk -F ' ' '{print substr($2, 0, length($2)-1)}'")
-(defpoll volume-status :interval "1s" "volumectl | awk -F ' ' '{print substr($3, 2, length($3)-2)}'")
-(defvar volum "false")
-(defwidget volum []
-    (eventbox :onhover "${EWW_CMD} update volum=true"
-              :onhoverlost "${EWW_CMD} update volum=false"
-            (box :orientation "h"
-                 :space-evenly "false"
-                 :spacing "2"
-                 (revealer :transition "slideright"
-                           :reveal volum
-                           :duration "550ms"
-                            (scale :class "volbar"
-                                :value "${volume}.0"
-                                :tooltip "Volume: ${volume} %"
-                                :onchange "volumectl set {}%"
-                                :orientation "h"
-                                :max 100
-                                :min 0
-                            )
-                )
-                (label :class "volume-icon" :text "${volume-status == "on" ? "墳" : ""}")
-            )
-    )
-)
-
-(defpoll brightness :interval "5s" "light | awk -F, '{print substr($0, 0, length($0)-3)}'")
-(defvar bright "false")
-(defwidget bright []
-    (eventbox
-        :onhover "${EWW_CMD} update bright=true"
-        :onhoverlost "${EWW_CMD} update bright=false"
-        (box :space-evenly "false"
-             :orientation "h"
-             :hexpand "false"
-             :spacing 2
-            (revealer :transition "slideright"
-                      :reveal bright
-                      :duration "550ms"
-                        (scale :class "brightbar"
-                             :value "${brightness}.0"
-                             :tooltip "Brightness: ${brightness} %"
-                             :onchange "light -S {}"
-                             :orientation "h"
-                             :max 100
-                             :min 0
-                        )
-            )
-            (label :class "brightness-icon" :text "")
-        )
-    )
-)
-
-(defwidget battery [capacity status]
-    (box :orientation "h"
-         :space-evenly "false"
-        (label :class "battery"
-               :valign "end"
-               :text "${status == "Charging" ? "􀢋" :
-                    capacity == 100 ? "􀛨" :
-                    (capacity > 75 ? "􀺸" :
-                    (capacity > 50 ? "􀺶" :
-                    (capacity > 25 ? "􀛩" :
-                    (capacity > 0 ? "􀛪" : "􀛪"))))}"
-               :tooltip "Battery: ${capacity}%")))
-
-; (defpoll battery-capacity :interval "1s" "cat /sys/class/power_supply/macsmc-battery/capacity")
-; (defpoll battery-status :interval "1s" "cat /sys/class/power_supply/macsmc-battery/status")
-
-(defwidget control []
-    (box :orientation "h"
-         :space-evenly "false"
-         :class "control"
-         (volum)
-         (bright)
-         (gh-notifications :len {arraylength(gh-notifications)})
-         (battery :capacity {EWW_BATTERY['macsmc-battery']['capacity']}
-                    :status {EWW_BATTERY['macsmc-battery']['status']})
-         (cpu-graph :avg {EWW_CPU['avg']})
-))
-
-(defvar calendar "false")
-(defwidget time []
-    (box :orientation "h"
-         :class "time"
-         :halign "end"
-        (button :onclick "${calendar ?
-                "${EWW_CMD} update calendar=false && ${EWW_CMD} close calendar" :
-                "${EWW_CMD} update calendar=true && ${EWW_CMD} open calendar"}"
-                "${date.week} ${date.day}. ${date.month} ${date.hour}:${date.min}")))
-
-(defwidget power []
-    (eventbox :onhover "${EWW_CMD} update power=true"
-              :onhoverlost "${EWW_CMD} update power=false"
-            (box :orientation "h"
-                :space-evenly "false"
-                :hexpand "false"
-                :class "powermenu"
-                (revealer :transition "slideright"
-                          :reveal power
-                          :duration "550ms"
-                    (box :orientation "h"
-                         :space-evenly "false"
-                        (button :class "button-lock"
-                                :tooltip "Lock"
-                                :onclick "${lock}"
-                                "")
-                        (button :class "button-reboot"
-                                :tooltip "Reboot"
-                                :onclick "reboot" "")
-                    )
-                )
-                (button :class "button-off"
-                    :tooltip "Shutdown"
-                    :onclick "shutdown now" "⏻")
-            )
-    )
-)
-(defvar power false)
-(defvar lock "systemctl suspend")
-
-(defwidget stats []
-    (box :orientation "h"
-         :space-evenly "false"
-         (time)
-         (power)
-    )
-)
-
-;; Right Widgets
-(defwidget right []
-    (box :orientation "h"
-         :space-evenly "false"
-         :halign "end"
-         :spacing 5
-         (control)
-         (stats))
-)
-
-;; Widgets on Left
-(deflisten workspaces :initial "[]" "sh ~/.config/eww/scripts/get-workspaces.sh")
-(deflisten current_workspace :initial "1" "sh ~/.config/eww/scripts/get-active-workspace.sh")
-(deflisten current_window :initial "" "sh ~/.config/eww/scripts/get-active-window.sh")
-
-(defwidget workspaces []
-    (eventbox :onscroll "sh ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}"
-        (box :class "workspaces"
-            :space-evenly true
-            :orientation "h"
-            :valign "center"
-            :halign "start"
-            (for workspace in workspaces
-                (button :onclick "hyprctl dispatch workspace ${workspace.id}"
-                    :visible "${workspace.windows > 0 || workspace.id == current_workspace}"
-                    :class "${workspace.id == current_workspace ? "current" : ""} workspace-entry"
-                    "${workspace.id}")
-            )
-        )
-    )
-)
-
-(defwidget activewindow []
-    (box :class "activewindow"
-        :orientation "h"
-        :space-evenly false
-        :visible "${current_window != ""}"
-        (box :class "activewindow-arrow" "")
-        (label :text "${current_window}" :limit-width 15)
-    )
-)
-
-(defwidget logo []
-    (box :orientation "h"
-         :class "logo"
-         :space-evenly "false"
-         :halign "start"
-         ""))
-
-;; Left Widgets
 (defwidget left []
-    (box :orientation "h"
-         :space-evenly "false"
-         :halign "start"
-(logo)
-(workspaces)
-(activewindow)))
-
-;; Bar Widgets
-(defwidget bar []
-    (box :class "bar"
-            :orientation "h"
-            :vexpand "false"
-            :hexpand "false"
-    (left)
-    (center)
-    (right)))
-
-;; Bar Windows
-(defwindow bar
-    :monitor 0
-    :geometry (geometry :x "0"
-                        :y "6"
-                        :width "98%"
-                        :height "10"
-                        :anchor "top center")
-    :stacking "fg"
-    :wm-ignore false
-    :hexpand "false"
-    :vexpand "false"
-    :windowtype "toolbar"
-(bar))
-
-;; Calendar Windows
-(defwindow calendar
-    :monitor 0
-    :geometry (geometry :x "80%"
-                        :y "70"
-                        :width "60"
-                        :height "270")
-(cal))
-
-;; Github Notifications Window
-(defwindow ghn
-    :monitor 0
-    :geometry (geometry :x "72%"
-                        :y "70"
-                        :width "150")
-    (gh-list)
+  (eventbox
+    :onhover "${EWW_CMD} update music_reveal=true"
+    :onhoverlost "${EWW_CMD} update music_reveal=false"
+    (box
+      :space-evenly false :spacing 5
+      :valign "start" :halign "start"
+      (box :space-evenly false :class "module-group"
+        (osettings-button)
+        (osu-music-module)
+      )
+      ; (box :space-evenly false :class "module-group"
+        ;   (taskbar)
+      ; )
+      (revealer
+        :reveal false
+        :transition "slideright"
+        (label
+          :text "${volume.audio} ${brightness.level} ${wsjsona[0][0].at} ${wsjsonb[0][0].at}" ; Dummy to keep listeners active
+        )
+      )
+    )
+  )
 )
+
+(defwidget right []
+  (eventbox
+    :onhover "${EWW_CMD} update right_hover=true"
+    :onhoverlost "${EWW_CMD} update right_hover=false"
+    (box
+      :space-evenly false :spacing 5
+      :halign "end" :valign "start"
+      (box :space-evenly false :class "module-group"
+        ; (editmode)
+        (themer)
+      )
+      ; (user)
+      (box :space-evenly false :class "module-group"
+        (onotify-button)
+      )
+    )
+  )
+)
+
+(defwidget center []
+  (box
+    :space-evenly false :orientation "v"
+    ; (revealer
+    ;   :transition "slidedown"
+    ;   :duration "0ms"
+    ;   :reveal {!(rev_center_ws || awin.title == 'null')}
+    ;   ; :reveal true
+    ;   (workspaces_top)
+    ; )
+    (box
+      :valign "start"
+      :space-evenly false :spacing 5
+      :halign "center"
+      ; :style "${!(rev_center_ws || awin.title == 'null') ? 'margin-top: -15px; transition: 0px;' : 'transition: 0px;'}"
+      (box
+        :space-evenly false :space-evenly false
+        :spacing 5 :class "module-group" :style "padding-right: 10px;"
+        (searchbutton)
+        (revealer
+          :reveal {rev_center_ws || awin.title == 'null'}
+          ; :reveal false
+          :transition "slideright"
+          :duration "0ms"
+          (workspaces)
+        )
+        (revealer
+          :reveal {!(rev_center_ws || awin.title == 'null')}
+          ; :reveal true
+          :transition "slideright"
+          :duration "0ms"
+          (activewindow)
+        )
+      )
+    )
+  )
+)
+
+(defwidget bar [] ; Class .bar applies automatically
+  (box
+    :space-evenly false
+    :orientation "h"
+    (box
+      :class "bar-bg-only${compact ? '-compact' : ''}"
+      :style "
+      margin-right: -${RES_WIDTH - 9}px;
+      "
+    )
+    (centerbox
+      :class "bar-${compact ? 'compact' : 'normal'}"
+      :width {RES_WIDTH}
+      (left)
+      (center)
+      (right)
+    )
+  )
+)
+
+(defwidget winbar []
+  (centerbox
+    :class "winbar-bg"
+    (box
+      :space-evenly false
+      (winnews-button)
+      (eventbox
+        :onscroll "echo {} | sed -e \"s/up/-1/g\" -e \"s/down/+1/g\" | xargs hyprctl dispatch workspace"
+        (box
+          :space-evenly false
+          :style "margin-left: ${RES_WIDTH / 2 - 75 - (25 * arraylength(tasks))}px;"
+          (winstarticon)
+          (wintaskbar)
+          (revealer
+            :reveal false
+            :transition "slideright"
+            (label
+              :text "${net.level} ${brightness.level} ${wsjsona[0][0].at} ${wsjsonb[0][0].at}" ; Dummy to keep listeners active
+            )
+          )
+        )
+      )
+    )
+    (box
+      
+    )
+    (box
+      :halign "end"
+      :space-evenly false
+      (winactions)
+      (windate)
+    )
+  )
+)
+
+(defwindow bar
+  :stacking "fg"
+  :wm-ignore true
+  :monitor 0
+  :geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "100%"
+    :height "53px"
+    ; :width "53px"
+    ; :height "100%"
+    :anchor "top center"
+  )
+  ; :stacking "fg"
+  :exclusive false
+  (bar)
+)
+
+(defwindow winbar
+  :stacking "fg"
+  :monitor 0
+  :exclusive true
+  :geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "100%"
+    ; :height "53px"
+    ; :width "53px"
+    ; :height "100%"
+    :anchor "bottom center"
+  )
+  ; :stacking "fg"
+  :exclusive false
+  (winbar)
+)
+
