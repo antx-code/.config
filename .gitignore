@@ -35,6 +35,7 @@ ranger/colorschemes/default.pyo
 ranger/plugins/__init__.pyo
 ranger/plugins/devicons.pyo
 ranger/plugins/devicons_linemode.pyo
+ranger/__pycache__
 !/pudb/
 /pudb/*
 !/deepin/deepin-screenshot.conf
@@ -55,3 +56,4 @@ ranger/plugins/devicons_linemode.pyo
 !/dunst
 !/autostart
 !/mimeapps.list
+!/viewnior
