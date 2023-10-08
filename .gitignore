@@ -57,3 +57,8 @@ ranger/__pycache__
 !/autostart
 !/mimeapps.list
 !/viewnior
+!/waybar
+!/swaylock
+!/starship
+!/wlogout
+!/xsettingsd
