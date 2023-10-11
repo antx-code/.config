@@ -12,6 +12,8 @@ env:
 # 实时重载配置文件，不用重启测试配置选项
 live_config_reload: true
 
+hide_cursor_when_typing: true
+
 # 默认窗口无标题栏，16:9的窗口比例启动
 window:
   decorations: "none"
