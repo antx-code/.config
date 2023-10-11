@@ -2,10 +2,9 @@
 /*/
 
 !/ranger/
-ranger/__pycache__/
-ranger/plugins/__pycache__/*
-ranger/colorschemes/__pycache__/*
-ranger/folders.conf
+ranger/colorschemes/__pycache__/
+ranger/plugins/__pycache__/
+!/joshuto/
 !/alacritty/
 !/fish/
 !/neofetch/
