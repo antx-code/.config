@@ -1,3 +1,6 @@
+configuration {
+    modi: "window,drun,run,ssh";
+}
 
 
 * {
@@ -42,7 +45,7 @@ textbox {
     blink:                       true;
     markup:                      true;
     size:                        400em;
-    font: "JetBrainsMono Bold 15";
+    font: "mononoki Nerd Font Mono 14";
 
 }
 error-message {

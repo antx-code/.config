@@ -2,4 +2,4 @@
 
 DIR="$HOME/.config"
 
-rofi -show emoji -modi emoji -theme $DIR/rofi/Themes/emojis.rasi
+rofi -show emoji -modi emoji -theme $DIR/rofi/global/emoji.rasi
