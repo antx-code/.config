@@ -1,0 +1,17 @@
+[org/gnome/desktop/interface]
+gtk-theme='Adw-dark'
+icon-theme='Papirus-Dark-Maia'
+cursor-theme='Bibata-Modern-Classic'
+cursor-size=24
+font-name='mononoki Nerd Font Mono 12'
+font-hinting='slight'
+font-antialiasing='grayscale'
+font-rgba-order='rgb'
+text-scaling-factor=1.0
+toolbar-style='both-horiz'
+toolbar-icons-size='large'
+color-scheme='prefer-dark'
+
+[org/gnome/desktop/sound]
+event-sounds=true
+input-feedback-sounds=false
